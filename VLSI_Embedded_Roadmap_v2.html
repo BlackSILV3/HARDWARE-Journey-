@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VLSI & Embedded Systems — Master Roadmap</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #0a0e1a;
+    --ink2: #141929;
+    --surface: #f4f1eb;
+    --accent: #e8440a;
+    --gold: #c9860a;
+    --teal: #0a7a6e;
+    --blue: #1a3a8f;
+    --muted: #6b7280;
+    --border: #d4cfc5;
+    --stage-colors: #e8440a, #c9860a, #0a7a6e, #1a3a8f, #7c3aed, #be185d, #065f46, #92400e, #1e3a5f, #4a1942;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: var(--ink);
+    color: var(--surface);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 39px,
+      rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px
+    ),
+    repeating-linear-gradient(
+      90deg, transparent, transparent 39px,
+      rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px
+    );
+  }
+
+  .cover-chip {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .cover h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    position: relative;
+    margin-bottom: 8px;
+  }
+
+  .cover h1 span { color: var(--accent); }
+
+  .cover-sub {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: 400;
+    color: #8899cc;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .cover-stats {
+    display: flex;
+    gap: 48px;
+    position: relative;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--accent);
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8899cc;
+    margin-top: 4px;
+  }
+
+  .cover-divider {
+    width: 80px;
+    height: 2px;
+    background: var(--accent);
+    margin: 0 auto 40px;
+    position: relative;
+  }
+
+  .cover-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: #4a5568;
+    position: relative;
+    letter-spacing: 1px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    background: var(--ink2);
+    color: var(--surface);
+    padding: 48px 60px;
+    margin-top: 0;
+  }
+
+  .section-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .section-header h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  /* ── INTRO OVERVIEW ── */
+  .intro {
+    padding: 64px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .intro-card {
+    border: 1.5px solid var(--border);
+    padding: 28px;
+    position: relative;
+  }
+
+  .intro-card-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .intro-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .intro-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .intro-card .tag {
+    position: absolute;
+    top: -1px;
+    right: 24px;
+    background: var(--accent);
+    color: white;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 3px 10px;
+    letter-spacing: 1px;
+  }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow-section {
+    background: var(--ink);
+    padding: 64px 60px;
+    color: var(--surface);
+  }
+
+  .flow-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .flow-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 48px;
+  }
+
+  .flow-diagram {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    align-items: center;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .flow-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .flow-box {
+    background: var(--ink2);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 120px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .flow-box:hover { border-color: var(--accent); }
+
+  .flow-box-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .flow-box-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .flow-arrow {
+    color: var(--accent);
+    font-size: 20px;
+    padding: 0 8px;
+    line-height: 1;
+    margin-top: -20px;
+  }
+
+  .flow-split {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .flow-split-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: #8899cc;
+    text-align: center;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  /* ── STAGES ── */
+  .stages-container {
+    padding: 0 60px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .stages-intro {
+    padding: 48px 0 32px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .stage {
+    margin-bottom: 64px;
+    position: relative;
+  }
+
+  .stage::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .stage-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .stage-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: var(--ink);
+    color: var(--surface);
+    padding: 6px 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .stage-title-block h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .stage-title-block p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 680px;
+  }
+
+  .stage-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border: 1px solid;
+    margin-bottom: 20px;
+  }
+
+  .badge-active { border-color: var(--teal); color: var(--teal); background: rgba(10,122,110,0.06); }
+  .badge-next { border-color: var(--gold); color: var(--gold); background: rgba(201,134,10,0.06); }
+  .badge-later { border-color: var(--muted); color: var(--muted); background: rgba(107,114,128,0.06); }
+
+  .stage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 700px) {
+    .stage-grid { grid-template-columns: 1fr; }
+    .stages-container { padding: 0 24px 60px; }
+    .cover-stats { gap: 24px; }
+    .intro { padding: 40px 24px; }
+    .flow-section { padding: 48px 24px; }
+    .section-header { padding: 36px 24px; }
+  }
+
+  .card {
+    border: 1.5px solid var(--border);
+    padding: 24px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-icon { font-size: 18px; }
+
+  .card-header h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .book-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .book-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .book-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .book-info { flex: 1; }
+
+  .book-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 3px;
+  }
+
+  .book-author {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .book-edition {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    margin-top: 3px;
+    letter-spacing: 0.5px;
+  }
+
+  .video-item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .video-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .video-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .video-name {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .video-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* Tools card */
+  .tools-card {
+    border: 1.5px solid var(--border);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .tool-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+  }
+
+  .tool-item:last-child { border-bottom: none; }
+
+  .tool-name {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .tool-type {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    background: var(--ink);
+    color: var(--surface);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .tool-free {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    background: var(--teal);
+    color: white;
+  }
+
+  .tool-paid {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    background: var(--gold);
+    color: white;
+  }
+
+  /* Outcome card */
+  .outcome-card {
+    background: var(--ink);
+    color: var(--surface);
+    padding: 28px;
+    margin-top: 20px;
+  }
+
+  .outcome-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .outcome-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .outcome-list li {
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+
+  .outcome-list li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* Stage connector */
+  .connector {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    margin: 0 0 32px 0;
+  }
+
+  .connector-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .connector-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+
+  /* Power Systems section */
+  .power-section {
+    background: #0a1628;
+    color: var(--surface);
+    padding: 64px 60px;
+    margin-top: 40px;
+  }
+
+  /* Master book list */
+  .master-list-section {
+    padding: 64px 60px;
+    background: white;
+  }
+
+  .master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 32px;
+    font-size: 13px;
+  }
+
+  .master-table th {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    background: var(--ink);
+    color: var(--surface);
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .master-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .master-table tr:hover td { background: rgba(0,0,0,0.02); }
+
+  .master-table .num-col {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .master-table .stage-col {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .master-table .title-col {
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .master-table .author-col {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .master-table .edition-col {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  /* Footer */
+  .footer {
+    background: var(--ink);
+    color: #4a5568;
+    padding: 40px 60px;
+    text-align: center;
+  }
+
+  .footer p {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    line-height: 2;
+  }
+
+  .footer strong { color: var(--accent); }
+
+  /* Print */
+  @media print {
+    .cover { min-height: auto; padding: 40px; }
+    body { font-size: 12px; }
+    .stage::before { display: none; }
+  }
+
+  /* Accent stripe on stage */
+  .stage-stripe {
+    height: 3px;
+    margin-bottom: 24px;
+  }
+
+  .stripe-1 { background: #e8440a; }
+  .stripe-2 { background: #c9860a; }
+  .stripe-3 { background: #0a7a6e; }
+  .stripe-4 { background: #1a3a8f; }
+  .stripe-5 { background: #7c3aed; }
+  .stripe-6 { background: #be185d; }
+  .stripe-7 { background: #065f46; }
+  .stripe-8 { background: #92400e; }
+  .stripe-9 { background: #1e3a5f; }
+  .stripe-10 { background: #4a1942; }
+
+  .full-grid { grid-column: 1 / -1; }
+
+  h2.section-main {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  p.section-desc {
+    font-size: 15px;
+    color: #8899cc;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  /* ── DEDICATION HERO ── */
+  .dedication-hero {
+    background: var(--ink);
+    color: var(--surface);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid var(--accent);
+  }
+
+  .dedication-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 39px,
+      rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px
+    ),
+    repeating-linear-gradient(
+      90deg, transparent, transparent 39px,
+      rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px
+    );
+    z-index: 0;
+  }
+
+  .dedication-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    padding: 0;
+  }
+
+  .ded-top-bar {
+    width: 100%;
+    background: var(--accent);
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .ded-top-bar span {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: white;
+  }
+
+  .ded-photo-wrap {
+    width: 100%;
+    max-height: 520px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .ded-photo-wrap img {
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: grayscale(15%) contrast(1.05);
+  }
+
+  .ded-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 30%,
+      rgba(10,14,26,0.5) 70%,
+      rgba(10,14,26,0.98) 100%
+    );
+  }
+
+  .ded-text-block {
+    width: 100%;
+    padding: 0 40px 56px;
+    text-align: center;
+    margin-top: -120px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .ded-handle {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .ded-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 6vw, 64px);
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 16px;
+    color: var(--surface);
+  }
+
+  .ded-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #8899cc;
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+  }
+
+  .ded-quote {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    color: #c8d4f0;
+    font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding-left: 24px;
+    text-align: left;
+  }
+
+  .ded-badges {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  .ded-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7);
+  }
+
+  .ded-badge.hot {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(232,68,10,0.08);
+  }
+
+  .ded-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--accent);
+    margin: 0 auto 32px;
+  }
+
+  .ded-commitment {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #4a5568;
+    text-transform: uppercase;
+  }
+
+  .ded-commitment strong {
+    color: var(--gold);
+  }
+
+  @media (max-width: 600px) {
+    .ded-text-block { padding: 0 24px 48px; margin-top: -80px; }
+    .ded-top-bar { padding: 8px 24px; }
+  }
+
+</style>
+</head>
+<body>
+
+
+<!-- ══════════════════════════════════════ DEDICATION HERO ══════════════════════════════════════ -->
+<div class="dedication-hero">
+  <div class="dedication-inner">
+
+    <div class="ded-top-bar">
+      <span>► Personal Roadmap Document</span>
+      <span>VLSI Design & Embedded Systems · 2025 — Onwards</span>
+    </div>
+
+    <div class="ded-photo-wrap">
+      <img src="data:image/jpeg;base64,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/wD/AP8A/wA9/wD/AO/z/wD/AP8A/wD7ww0/7/z8www//fffAAOswwwwwx3vvvsMc4wwwQQQQwggw89//wD+oMMNPP8A/wDzw0//APH32wy4II4L777zzzgEEAAEAAAAAAAAAEFHPX0090sMMNP/APvDDDD1d88oAME888884xhBAAAAU8sMc8sAMMABBBR999vLDDDT/wDyww083/PIAFPPPPPKAAAABPPPDDPPPPPPPPPAAAAQdfffTfwww1/6www90MAAFPIAAAAADHPPPPOIAAAAAAAMEPPPDOAAUUcfYaQw0/7wxwzwABDHOIAAAAHPIAMMAAABDHDHPLADANPPLDAAQQfffSQQ09/ywwwBHPPIAAAAHPIADPHPDPPPPONPPPMLCEMMMDCAVffPbXTQww7w/wAgzzygAAABTyAxzzzzzzL72V6prI4ACwzwgADywgEDTz30kNP+8PzzyAAAxwzyBjygBraSKT2GmEHw4qyvP77wgABTwAFHHHGkENPPfTgABzzADCTzzCY/Ff8AzvDzn/lxxhlZi828+uIQ08sBBBBVJBBH/AAEM84AAc88AAHrf/7DP/f/AI8cdfYfT+4svvriAMNLDQQXfbQVf/DPOAADHPMMAgs7dMPTd61529aQcQVSccaGvuvjAANLCQUcdSQVTPPPAHPPIAgglHDNOEPLDBS/+dbfXTTbQdaQgvvrgAPPAQQUfQQdPPKAHPPKguvlVqDPKJPOAw92UbaUcfSQQVgggtPAgAPPCQUfbeXPPIAAPvvgtvh+otPFPNCAlxyUQQQUfeQQUHrglvvggNPOAQQfY/POCABvvvgnvt0gvqAE/wAINPMu18+cl0kHGT76oLL6oIDywEEDX3zzygJL74IL778Y4IZRkUvR07PSyilf2321j774IL64IIBTwkBTnzzygI576oL7557r75xJ79N2LDPAiwXH323zL76oLL44ADTzkFX3zzwJb774Ib5ZTIbq6wwDRON8UEFEFV0GlmAJL74ILaoIITygFHzz7oZL77oJ74fh8ZIrjiBiZsdUElEFXkUEWAMJb74IL744LQ0EDz76td774IJ6IXINZ7ZQjSp67eUEH00EFUGX5etL744Jb74oLwEEH/8ArX++/CCWqXKaG6awoUmK6ONpBNdpJdd5X/rDX++CWiCCU8sBA/8A6/8A/wDvDD/r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gggkgw0/UQcTaRQbfywwuVU8hjvvvuoxy18cMojggACAAhywgstgjgl/rgksLTQc/wBn33O89HE8d/P8MNOFHXlyAEEgU020U11EEwxDLSjDKDb4w5G0FO88kHd/02nXHkEE012lCAgX002kFHGEFH3HH3ygBBygBLb645L8vf8AjRxd99hVt5VN99pBNd95BBBxxFNd9tNNNN999MA08sIwC+KCXJV/vP1RxNNpVhBtJBVxtNNd95lNNPPPPLzR9JBxF9AQQwIcU+OY9R97/wA/TWcYWZTSQfZfZT89zXf+8484y0/4z93fWcfQAAPAANPPkpi9f+/eYVfZXfXfYXY18w4x8zzz399/7z0350888+daFPPeEIMKggnfQdcQdacfdfaVYspjjj6g/Pvb6vNtDQw28w5ww729yAdffANPkvOaYRTZTTcacRZojiglK65lN3830cLjCbN8fb9/y1y//mMMMHKAkshBWQfYTcw9+jnspEH9WdQSZCLF9edXWVucIwUd25w0/rAABNPIBvLTecTex/pjvggmEFOhujvFMCCdecfUQ2/EPUUdy8928vCHDECFLg8wcQjsovsshGpLOeTIJiptrNqsguadTfZkbWacyy929LEMJJCBMzw/noglogBPJQ8x1faWUeArLmpulijLAWYQQbSUbw7zfAAELPLCghvvoglqHBDNVIz505YZfqrDpgkrjsggtf8Azwjev2sP0GABDxASIJaL74ADzwjDDBwcvXknV/YyILZ4KZJIb7uBBxU0n0vckUgACh4ILpr7gDzxSDxoyjz8EAceJCeeqjS/2Z7oY4QhSzAlXWu9nxwmQAIJKriwDwBRTyozgxz98ynYqiuxkjItKL6oJygDyyxH30MMHT1UQY4q7zCDShRTx/zzLjMhfVSIDnq0J3oIL7pLDwBTzAnG8OcMSBSxIL5SgABQDhRRXJJKiNsFW4bSZLJJL476qboxDgCwzVX00etchD04xjiwQzgSBxP4MZKBusHVtLAYaKL7rbpbpL3wQgDwiwHEmfL4G1TjmmBTwByCD3jcJhzvn0ec9gbIL65LJb7ZClVjwDCBSkHUEP64wEG2kAD0DyiqhSLZQj/XE/NP0a6IJKpa6b7cFXlUAChR331cNvqME30EH20P8OubsvefGt4pxyqBOooI6Kao5p11HHkgCxAgHVf+ud/X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" alt="Emmanuel Oscar Paul — BlackSILV3" />
+      <div class="ded-photo-overlay"></div>
+    </div>
+
+    <div class="ded-text-block">
+      <div class="ded-handle">@ BlackSILV3</div>
+      <div class="ded-name">Emmanuel<br>Oscar Paul</div>
+      <div class="ded-title">Electrical & Electronics Engineering Student &nbsp;·&nbsp; VLSI Design & Embedded Systems</div>
+
+      <div class="ded-quote">
+        "This roadmap belongs to one person. Built deliberately. Sequenced correctly. 
+        From the first circuit law to the last processor register — every stage earned, 
+        every chip designed, every line of firmware written by hand."
+      </div>
+
+      <div class="ded-badges">
+        <span class="ded-badge hot">▶ Journey Started</span>
+        <span class="ded-badge">100 Level EEE</span>
+        <span class="ded-badge">Digital Logic — Active</span>
+        <span class="ded-badge">Verilog — In Progress</span>
+        <span class="ded-badge">Destination: Full-Stack Silicon Engineer</span>
+      </div>
+
+      <div class="ded-divider"></div>
+
+      <div class="ded-commitment">
+        Dedicated to &nbsp;<strong>Emmanuel Oscar Paul</strong>&nbsp; — the engineer who will build what others only study.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ COVER ══════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-chip">► BlackSILV3 · Emmanuel Oscar Paul · Master Engineering Roadmap</div>
+  <h1>VLSI Design &<br><span>Embedded Systems</span></h1>
+  <div class="cover-sub">From Foundations to Silicon — Complete Journey</div>
+  <div class="cover-divider"></div>
+  <div class="cover-stats">
+    <div class="stat">
+      <span class="stat-num">10</span>
+      <div class="stat-label">Stages</div>
+    </div>
+    <div class="stat">
+      <span class="stat-num">18</span>
+      <div class="stat-label">Textbooks</div>
+    </div>
+    <div class="stat">
+      <span class="stat-num">18</span>
+      <div class="stat-label">Video Sources</div>
+    </div>
+    <div class="stat">
+      <span class="stat-num">20+</span>
+      <div class="stat-label">Tools</div>
+    </div>
+  </div>
+  <div class="cover-meta">
+    Electrical & Electronics Engineering · VLSI Design · Embedded Systems · Computer Architecture
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ INTRO ══════════════════════════════════════ -->
+<div class="intro">
+  <div style="margin-bottom:12px;">
+    <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);">Overview</span>
+  </div>
+  <h2 style="font-family:'Syne',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:800;margin-bottom:16px;line-height:1.2;">
+    What This Roadmap Builds
+  </h2>
+  <p style="font-size:15px;color:var(--muted);max-width:760px;line-height:1.8;">
+    This is a complete, sequenced journey from the foundations of electrical engineering all the way to designing 
+    microprocessor chips and building embedded systems from scratch. Every stage feeds the next. 
+    Nothing is skipped. Nothing is wasted.
+  </p>
+
+  <div class="intro-grid">
+    <div class="intro-card">
+      <span class="intro-card-icon">⚡</span>
+      <div class="tag">START</div>
+      <h4>Electrical Foundations</h4>
+      <p>Circuits, semiconductor physics, signals — the physics and mathematics that every other stage is built on.</p>
+    </div>
+    <div class="intro-card">
+      <span class="intro-card-icon">🔲</span>
+      <h4>Digital Design</h4>
+      <p>Logic gates, Boolean algebra, FSMs, Verilog — the language that processors and chips are written in.</p>
+    </div>
+    <div class="intro-card">
+      <span class="intro-card-icon">🔧</span>
+      <h4>Embedded Systems</h4>
+      <p>Bare-metal firmware, RTOS, PCB design — programming and building real hardware systems around chips.</p>
+    </div>
+    <div class="intro-card">
+      <span class="intro-card-icon">🏭</span>
+      <div class="tag">END GOAL</div>
+      <h4>VLSI & Chip Design</h4>
+      <p>FPGA, CMOS, SystemVerilog, processor architecture — designing the actual silicon chips from RTL to tape-out.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ FLOW DIAGRAM ══════════════════════════════════════ -->
+<div class="flow-section">
+  <div class="flow-title">► Journey Map</div>
+  <div class="flow-heading">The Complete Path — At a Glance</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0;max-width:800px;margin:0 auto;">
+
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;">
+      <div class="flow-box" style="border-color:#e8440a;">
+        <div class="flow-box-num">STAGE 1</div>
+        <div class="flow-box-label">Electrical<br>Foundations</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:#c9860a;">
+        <div class="flow-box-num">STAGE 2</div>
+        <div class="flow-box-label">Semiconductor<br>Physics</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:#0a7a6e;">
+        <div class="flow-box-num">STAGE 3</div>
+        <div class="flow-box-label">Signals &<br>Systems</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:#1a3a8f;">
+        <div class="flow-box-num">STAGE 4</div>
+        <div class="flow-box-label">Digital Logic &<br>Computer Design</div>
+      </div>
+    </div>
+
+    <div style="color:var(--accent);font-size:24px;padding:8px 0;">↓</div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;">
+      <div class="flow-box" style="border-color:#7c3aed;">
+        <div class="flow-box-num">STAGE 5</div>
+        <div class="flow-box-label">C Programming</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:#be185d;">
+        <div class="flow-box-num">STAGE 6</div>
+        <div class="flow-box-label">Bare-Metal<br>Embedded</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:#065f46;">
+        <div class="flow-box-num">STAGE 7</div>
+        <div class="flow-box-label">RTOS &<br>Embedded OS</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:#92400e;">
+        <div class="flow-box-num">STAGE 8</div>
+        <div class="flow-box-label">PCB Design &<br>Signal Integrity</div>
+      </div>
+    </div>
+
+    <div style="color:var(--accent);font-size:24px;padding:8px 0;">↓</div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;">
+      <div class="flow-box" style="border-color:#1e3a5f;">
+        <div class="flow-box-num">STAGE 9</div>
+        <div class="flow-box-label">Analog IC<br>Design</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:#4a1942;">
+        <div class="flow-box-num">STAGE 10</div>
+        <div class="flow-box-label">FPGA · CMOS<br>VLSI · Verilog</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:#e8440a;">
+        <div class="flow-box-num">STAGE 11</div>
+        <div class="flow-box-label">Computer<br>Architecture</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color:#c9860a;">
+        <div class="flow-box-num">STAGE 12</div>
+        <div class="flow-box-label">Advanced Arch &<br>Memory Systems</div>
+      </div>
+    </div>
+
+    <div style="color:var(--accent);font-size:24px;padding:8px 0;">↓</div>
+
+    <div class="flow-box" style="border-color:var(--accent);background:rgba(232,68,10,0.1);padding:20px 40px;">
+      <div class="flow-box-num" style="font-size:12px;">🏆 DESTINATION</div>
+      <div class="flow-box-label" style="font-size:16px;color:var(--accent);">Full-Stack Silicon Engineer</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ STAGES ══════════════════════════════════════ -->
+<div style="padding: 64px 0 0; background: var(--surface);">
+<div class="stages-container">
+  <div class="stages-intro">► Detailed Stage Breakdown — All Books · Videos · Tools · Outcomes</div>
+
+
+  <!-- ══ STAGE 1 ══ -->
+  <div class="stage">
+    <div class="stage-stripe stripe-1"></div>
+    <div class="stage-header">
+      <div class="stage-number">STAGE 01</div>
+      <div class="stage-title-block">
+        <h2>Electrical Foundations</h2>
+        <p>The bedrock of all electrical engineering. Voltage, current, KVL, KCL, Thevenin, AC analysis, phasors, and Laplace — the language every future stage is written in.</p>
+      </div>
+    </div>
+    <span class="stage-badge badge-active">▶ Begin Here</span>
+
+    <div class="stage-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📗</span>
+          <h4>Textbook</h4>
+        </div>
+        <div class="book-item">
+          <span class="book-num">01</span>
+          <div class="book-info">
+            <div class="book-title">Fundamentals of Electric Circuits</div>
+            <div class="book-author">Charles K. Alexander & Matthew N.O. Sadiku</div>
+            <div class="book-edition">7th Edition · 2020 · McGraw-Hill</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎬</span>
+          <h4>Video Source</h4>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Neso Academy — Electric Circuits / Network Theory Playlist</div>
+            <div class="video-note">YouTube · Free · Watch after each chapter</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools-card">
+      <div class="card-header">
+        <span class="card-icon">🛠️</span>
+        <h4>Tools For This Stage</h4>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">LTspice — Circuit Simulation</span>
+        <span class="tool-free">FREE</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">Falstad Circuit Simulator (falstad.com/circuit)</span>
+        <span class="tool-free">FREE · Browser-based</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">Multimeter + Basic Components (Breadboard Kit)</span>
+        <span class="tool-paid">HARDWARE</span>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>✦ What You Can Do After This Stage</h4>
+      <ul class="outcome-list">
+        <li>Analyze any DC and AC circuit on paper before building it</li>
+        <li>Apply Thevenin, Norton, nodal, and mesh analysis confidently</li>
+        <li>Read and interpret any circuit schematic or datasheet</li>
+        <li>Simulate circuits and verify your paper calculations</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-line"></div><div class="connector-text">↓ CONTINUES</div><div class="connector-line"></div></div>
+
+
+  <!-- ══ STAGE 2 ══ -->
+  <div class="stage">
+    <div class="stage-stripe stripe-2"></div>
+    <div class="stage-header">
+      <div class="stage-number">STAGE 02</div>
+      <div class="stage-title-block">
+        <h2>Semiconductor Physics</h2>
+        <p>The physics inside every transistor, diode, and MOSFET. P-N junctions, carrier drift, depletion regions — the invisible reality that makes chips possible.</p>
+      </div>
+    </div>
+    <span class="stage-badge badge-next">► Core Foundation</span>
+
+    <div class="stage-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📗</span>
+          <h4>Textbook</h4>
+        </div>
+        <div class="book-item">
+          <span class="book-num">02</span>
+          <div class="book-info">
+            <div class="book-title">Semiconductor Device Fundamentals</div>
+            <div class="book-author">Robert F. Pierret</div>
+            <div class="book-edition">2nd Edition · 1996 · Addison-Wesley</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎬</span>
+          <h4>Video Source</h4>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">NPTEL — Semiconductor Devices course</div>
+            <div class="video-note">YouTube · Free · Pairs well with Pierret chapters</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>✦ What You Can Do After This Stage</h4>
+      <ul class="outcome-list">
+        <li>Understand why MOSFETs switch at the atomic level</li>
+        <li>Read advanced device datasheets — threshold voltage, leakage, breakdown</li>
+        <li>Lay the intellectual foundation for CMOS chip design in Stage 10</li>
+        <li>Understand power semiconductor behavior for the future power systems roadmap</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-line"></div><div class="connector-text">↓ CONTINUES</div><div class="connector-line"></div></div>
+
+
+  <!-- ══ STAGE 3 ══ -->
+  <div class="stage">
+    <div class="stage-stripe stripe-3"></div>
+    <div class="stage-header">
+      <div class="stage-number">STAGE 03</div>
+      <div class="stage-title-block">
+        <h2>Signals & Systems</h2>
+        <p>The mathematical framework for understanding how signals behave in any system. Fourier, Laplace, convolution, frequency response — used in every future stage.</p>
+      </div>
+    </div>
+    <span class="stage-badge badge-next">► Mathematical Core</span>
+
+    <div class="stage-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📗</span>
+          <h4>Textbook</h4>
+        </div>
+        <div class="book-item">
+          <span class="book-num">03</span>
+          <div class="book-info">
+            <div class="book-title">Signals & Systems</div>
+            <div class="book-author">Alan V. Oppenheim & Alan S. Willsky</div>
+            <div class="book-edition">2nd Edition · 1996 · Prentice Hall</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎬</span>
+          <h4>Video Sources</h4>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">MIT OCW 6.003 — Signals and Systems, Fall 2011</div>
+            <div class="video-note">Prof. Dennis Freeman · 25 lectures · Use first</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">MIT RES.6.007 — Signals and Systems, 1987</div>
+            <div class="video-note">Prof. Alan Oppenheim · 26 lectures · Deep pass — matches book exactly</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>✦ What You Can Do After This Stage</h4>
+      <ul class="outcome-list">
+        <li>Think in both time domain and frequency domain simultaneously</li>
+        <li>Design and analyse filters for analog and digital signals</li>
+        <li>Understand how ADCs, DACs, and sampling work at system level</li>
+        <li>Understand clock signal behavior and timing in embedded systems</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-line"></div><div class="connector-text">↓ CONTINUES</div><div class="connector-line"></div></div>
+
+
+  <!-- ══ STAGE 4 ══ -->
+  <div class="stage">
+    <div class="stage-stripe stripe-4"></div>
+    <div class="stage-header">
+      <div class="stage-number">STAGE 04</div>
+      <div class="stage-title-block">
+        <h2>Microelectronics & Analog Circuits</h2>
+        <p>Transistor circuits — amplifiers, op-amps, biasing, frequency response. The bridge between device physics and analog IC design.</p>
+      </div>
+    </div>
+    <span class="stage-badge badge-next">► Analog Foundation</span>
+
+    <div class="stage-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📗</span>
+          <h4>Textbook</h4>
+        </div>
+        <div class="book-item">
+          <span class="book-num">04</span>
+          <div class="book-info">
+            <div class="book-title">Microelectronic Circuits</div>
+            <div class="book-author">Adel S. Sedra & Kenneth C. Smith</div>
+            <div class="book-edition">8th Edition · 2020 · Oxford University Press</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎬</span>
+          <h4>Video Source</h4>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Behzad Razavi — UC Berkeley EE140/EE240</div>
+            <div class="video-note">Analog IC Design Lectures · YouTube · Free</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>✦ What You Can Do After This Stage</h4>
+      <ul class="outcome-list">
+        <li>Design amplifier stages from scratch using BJTs and MOSFETs</li>
+        <li>Understand op-amp internals — not just treat them as black boxes</li>
+        <li>Design sensor interface circuits and analog front ends for embedded systems</li>
+        <li>Prepare directly for professional analog IC design in Stage 9</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-line"></div><div class="connector-text">↓ CONTINUES</div><div class="connector-line"></div></div>
+
+
+  <!-- ══ STAGE 5 ══ -->
+  <div class="stage">
+    <div class="stage-stripe stripe-5"></div>
+    <div class="stage-header">
+      <div class="stage-number">STAGE 05</div>
+      <div class="stage-title-block">
+        <h2>C Programming</h2>
+        <p>True mastery of C — pointers, memory management, bitwise operations, hardware-aware programming. Every embedded system is built in this language.</p>
+      </div>
+    </div>
+    <span class="stage-badge badge-next">► Non-Negotiable</span>
+
+    <div class="stage-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📗</span>
+          <h4>Textbook</h4>
+        </div>
+        <div class="book-item">
+          <span class="book-num">05</span>
+          <div class="book-info">
+            <div class="book-title">The C Programming Language</div>
+            <div class="book-author">Brian W. Kernighan & Dennis M. Ritchie</div>
+            <div class="book-edition">2nd Edition · 1988 · Prentice Hall · "K&R C"</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🛠️</span>
+          <h4>Tools</h4>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">GCC Compiler — Command line C compilation</div>
+            <div class="video-note">Free · Install on any OS</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">VS Code + C/C++ Extension</div>
+            <div class="video-note">Free · Already using for Verilog</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>✦ What You Can Do After This Stage</h4>
+      <ul class="outcome-list">
+        <li>Write clean, efficient, hardware-aware C code from scratch</li>
+        <li>Work confidently with pointers, structs, and bitwise operations</li>
+        <li>Read and understand any existing embedded codebase</li>
+        <li>Everything in Stage 6 and Stage 7 is written in this language</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-line"></div><div class="connector-text">↓ CONTINUES</div><div class="connector-line"></div></div>
+
+
+  <!-- ══ STAGE 6 ══ -->
+  <div class="stage">
+    <div class="stage-stripe stripe-1"></div>
+    <div class="stage-header">
+      <div class="stage-number">STAGE 06</div>
+      <div class="stage-title-block">
+        <h2>Digital Logic & Computer Design</h2>
+        <p>Logic gates → FSMs → datapaths → control units → processor. You are here right now. Ben Eater makes you watch it happen physically on breadboard.</p>
+      </div>
+    </div>
+    <span class="stage-badge badge-active">▶ Currently Active</span>
+
+    <div class="stage-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📗</span>
+          <h4>Textbook</h4>
+        </div>
+        <div class="book-item">
+          <span class="book-num">06</span>
+          <div class="book-info">
+            <div class="book-title">Digital Design and Computer Architecture: ARM Edition</div>
+            <div class="book-author">Sarah L. Harris & David Money Harris</div>
+            <div class="book-edition">2nd Edition · 2015 · Morgan Kaufmann</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎬</span>
+          <h4>Video Sources</h4>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Neso Academy — Digital Electronics Playlist</div>
+            <div class="video-note">Your instructor's starting point · Active now</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Ben Eater — Binary and Logic Gates Videos</div>
+            <div class="video-note">YouTube · Visual and physical — breadboard demonstrations</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Ben Eater — Building an 8-bit Computer Playlist</div>
+            <div class="video-note">YouTube · Gates → Memory → CPU on breadboard</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">MIT 6.004 — Computation Structures</div>
+            <div class="video-note">MIT OCW · Free · Formal digital design theory</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Onur Mutlu — ETH Zurich Digital Design & Computer Architecture</div>
+            <div class="video-note">YouTube · Free · Deep architecture coverage</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools-card">
+      <div class="card-header">
+        <span class="card-icon">🛠️</span>
+        <h4>Tools For This Stage</h4>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">VS Code + Digital IDE / Verilog Extension</span>
+        <span class="tool-free">FREE · Already Using</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">Icarus Verilog — Verilog simulator</span>
+        <span class="tool-free">FREE · Open Source</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">GTKWave — Waveform viewer for simulation</span>
+        <span class="tool-free">FREE · Open Source</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">Logisim-Evolution — Logic circuit simulator</span>
+        <span class="tool-free">FREE · Excellent for gate-level work</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">Digital (hneemann) — Advanced logic simulator</span>
+        <span class="tool-free">FREE · Open Source</span>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>✦ What You Can Do After This Stage</h4>
+      <ul class="outcome-list">
+        <li>Design any digital logic system from scratch — gates to processor</li>
+        <li>Write synthesizable Verilog with genuine hardware understanding</li>
+        <li>Understand timing, setup/hold times, and clock domains</li>
+        <li>After Ben Eater's CPU build — a processor is no longer magic. It is logic gates with memory.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-line"></div><div class="connector-text">↓ CONTINUES</div><div class="connector-line"></div></div>
+
+
+  <!-- ══ STAGE 7 ══ -->
+  <div class="stage">
+    <div class="stage-stripe stripe-6"></div>
+    <div class="stage-header">
+      <div class="stage-number">STAGE 07</div>
+      <div class="stage-title-block">
+        <h2>Bare-Metal Embedded Systems</h2>
+        <p>Programming real microcontrollers at the register level. No HAL. No abstraction. Direct hardware control — GPIO, timers, UART, SPI, I2C, ADC, DMA, interrupts.</p>
+      </div>
+    </div>
+    <span class="stage-badge badge-next">► Real Hardware Engineering Begins</span>
+
+    <div class="stage-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📗</span>
+          <h4>Textbooks</h4>
+        </div>
+        <div class="book-item">
+          <span class="book-num">07</span>
+          <div class="book-info">
+            <div class="book-title">ARM Cortex-M for Beginners</div>
+            <div class="book-author">ARM Ltd.</div>
+            <div class="book-edition">Latest Free Edition · arm.com · Free PDF</div>
+          </div>
+        </div>
+        <div class="book-item">
+          <span class="book-num">08</span>
+          <div class="book-info">
+            <div class="book-title">Embedded Systems: Introduction to ARM Cortex-M Microcontrollers</div>
+            <div class="book-author">Jonathan W. Valvano</div>
+            <div class="book-edition">5th Edition · 2014 · CreateSpace</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎬</span>
+          <h4>Video Sources</h4>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Fastbit Embedded Brain Academy — STM32 Register-Level</div>
+            <div class="video-note">Udemy · Register-level, no HAL — essential</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Controllerstech — STM32 Peripherals & Firmware</div>
+            <div class="video-note">YouTube · Free · Peripheral tutorials</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Jonathan Valvano — UT Austin Embedded Systems Lectures</div>
+            <div class="video-note">Free online at utexas.edu · Matches the book exactly</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Bruce Land — Cornell ECE 4760 Lectures</div>
+            <div class="video-note">YouTube · Free · Advanced embedded projects</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools-card">
+      <div class="card-header">
+        <span class="card-icon">🛠️</span>
+        <h4>Tools For This Stage</h4>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">STM32 Nucleo or Blue Pill Board</span>
+        <span class="tool-paid">HARDWARE · ~$5–15</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">STM32CubeIDE — Development environment</span>
+        <span class="tool-free">FREE</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">GNU ARM Embedded Toolchain (GCC)</span>
+        <span class="tool-free">FREE</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">OpenOCD — Open On-Chip Debugger</span>
+        <span class="tool-free">FREE · Open Source</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">Logic Analyzer (e.g. Saleae or clone)</span>
+        <span class="tool-paid">HARDWARE · ~$10–30</span>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>✦ What You Can Do After This Stage</h4>
+      <ul class="outcome-list">
+        <li>Build complete embedded systems on ARM Cortex-M from scratch</li>
+        <li>Write startup code, linker scripts — understand the entire boot sequence</li>
+        <li>Interface with sensors, displays, motors at the hardware register level</li>
+        <li>You become a real embedded systems engineer — not someone who uses Arduino libraries</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-line"></div><div class="connector-text">↓ CONTINUES</div><div class="connector-line"></div></div>
+
+
+  <!-- ══ STAGE 8 ══ -->
+  <div class="stage">
+    <div class="stage-stripe stripe-7"></div>
+    <div class="stage-header">
+      <div class="stage-number">STAGE 08</div>
+      <div class="stage-title-block">
+        <h2>RTOS & Embedded Operating Systems</h2>
+        <p>Managing complexity — multiple tasks, shared resources, timing constraints. FreeRTOS, scheduling, mutexes, semaphores, queues, context switching.</p>
+      </div>
+    </div>
+    <span class="stage-badge badge-later">► After Stage 7</span>
+
+    <div class="stage-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📗</span>
+          <h4>Textbooks</h4>
+        </div>
+        <div class="book-item">
+          <span class="book-num">09</span>
+          <div class="book-info">
+            <div class="book-title">Making Embedded Systems</div>
+            <div class="book-author">Elecia White</div>
+            <div class="book-edition">2nd Edition · 2024 · O'Reilly Media</div>
+          </div>
+        </div>
+        <div class="book-item">
+          <span class="book-num">10</span>
+          <div class="book-info">
+            <div class="book-title">Operating Systems: Three Easy Pieces</div>
+            <div class="book-author">Remzi H. Arpaci-Dusseau & Andrea C. Arpaci-Dusseau</div>
+            <div class="book-edition">Free Online Edition · ostep.org · Continuously Updated</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎬</span>
+          <h4>Video Sources</h4>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">FreeRTOS — Official Documentation & Tutorial Series</div>
+            <div class="video-note">freertos.org · Free · Primary reference</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>✦ What You Can Do After This Stage</h4>
+      <ul class="outcome-list">
+        <li>Design and implement multi-tasking embedded applications using FreeRTOS</li>
+        <li>Manage task scheduling, semaphores, queues, and interrupt-driven design</li>
+        <li>Build production-grade embedded firmware that is maintainable and scalable</li>
+        <li>Transition confidently into embedded Linux when projects grow to require it</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-line"></div><div class="connector-text">↓ CONTINUES</div><div class="connector-line"></div></div>
+
+
+  <!-- ══ STAGE 9 ══ -->
+  <div class="stage">
+    <div class="stage-stripe stripe-8"></div>
+    <div class="stage-header">
+      <div class="stage-number">STAGE 09</div>
+      <div class="stage-title-block">
+        <h2>PCB Design & Signal Integrity</h2>
+        <p>Taking embedded designs off the breadboard into real manufacturable PCBs. Controlled impedance, power delivery, EMI, crosstalk, and layout rules.</p>
+      </div>
+    </div>
+    <span class="stage-badge badge-later">► After Stage 8</span>
+
+    <div class="stage-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📗</span>
+          <h4>Textbook</h4>
+        </div>
+        <div class="book-item">
+          <span class="book-num">11</span>
+          <div class="book-info">
+            <div class="book-title">Signal and Power Integrity Simplified</div>
+            <div class="book-author">Eric Bogatin</div>
+            <div class="book-edition">3rd Edition · 2018 · Prentice Hall</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎬</span>
+          <h4>Video Source</h4>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Phil's Lab — PCB Design & KiCad Tutorials</div>
+            <div class="video-note">YouTube · Free · Schematic to Gerber, practical workflow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools-card">
+      <div class="card-header">
+        <span class="card-icon">🛠️</span>
+        <h4>Tools For This Stage</h4>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">KiCad — PCB Design Suite</span>
+        <span class="tool-free">FREE · Open Source · Industry-grade</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">JLCPCB or PCBWay — PCB Fabrication</span>
+        <span class="tool-paid">~$2–5 for 5 boards</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">Oscilloscope — Signal measurement</span>
+        <span class="tool-paid">HARDWARE · Budget: ~$50+ (Rigol DS1054Z)</span>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>✦ What You Can Do After This Stage</h4>
+      <ul class="outcome-list">
+        <li>Design complete PCBs in KiCad from schematic to Gerber files</li>
+        <li>Apply signal integrity rules — controlled impedance, via placement, routing</li>
+        <li>Submit professional PCB designs to manufacturers with confidence</li>
+        <li>Your embedded system designs can now exist as real standalone hardware products</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-line"></div><div class="connector-text">↓ CONTINUES</div><div class="connector-line"></div></div>
+
+
+  <!-- ══ STAGE 10 ══ -->
+  <div class="stage">
+    <div class="stage-stripe stripe-9"></div>
+    <div class="stage-header">
+      <div class="stage-number">STAGE 10</div>
+      <div class="stage-title-block">
+        <h2>Analog Integrated Circuit Design</h2>
+        <p>Professional IC-level analog design. Op-amp internals, feedback theory, noise, bandwidth, current mirrors, stability — at the transistor level on silicon.</p>
+      </div>
+    </div>
+    <span class="stage-badge badge-later">► After Stage 4</span>
+
+    <div class="stage-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📗</span>
+          <h4>Textbooks</h4>
+        </div>
+        <div class="book-item">
+          <span class="book-num">12</span>
+          <div class="book-info">
+            <div class="book-title">Analog Integrated Circuit Design</div>
+            <div class="book-author">Tony Chan Carusone, David A. Johns & Kenneth W. Martin</div>
+            <div class="book-edition">2nd Edition · 2011 · Wiley</div>
+          </div>
+        </div>
+        <div class="book-item">
+          <span class="book-num">13</span>
+          <div class="book-info">
+            <div class="book-title">Analysis and Design of Analog Integrated Circuits</div>
+            <div class="book-author">Paul R. Gray, Paul J. Hurst & Stephen H. Lewis</div>
+            <div class="book-edition">5th Edition · 2009 · Wiley</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎬</span>
+          <h4>Video Source</h4>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Behzad Razavi — UC Berkeley EE140/EE240</div>
+            <div class="video-note">Analog IC Design Lectures · Deep pass at this stage</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>✦ What You Can Do After This Stage</h4>
+      <ul class="outcome-list">
+        <li>Design analog building blocks at transistor level for integration on silicon</li>
+        <li>Understand op-amp, comparator, voltage reference, bandgap circuit internals</li>
+        <li>Contribute to mixed-signal IC design — the boundary between analog and digital</li>
+        <li>This separates engineers who use analog ICs from engineers who design them</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-line"></div><div class="connector-text">↓ CONTINUES</div><div class="connector-line"></div></div>
+
+
+  <!-- ══ STAGE 11 ══ -->
+  <div class="stage">
+    <div class="stage-stripe stripe-10"></div>
+    <div class="stage-header">
+      <div class="stage-number">STAGE 11</div>
+      <div class="stage-title-block">
+        <h2>FPGA · Verilog · CMOS VLSI Design</h2>
+        <p>Chip design territory. FPGA implementation, CMOS at layout level, SystemVerilog for production hardware, formal verification — you are now operating at the boundary of silicon.</p>
+      </div>
+    </div>
+    <span class="stage-badge badge-later">► VLSI Core</span>
+
+    <div class="stage-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📗</span>
+          <h4>Textbooks</h4>
+        </div>
+        <div class="book-item">
+          <span class="book-num">14</span>
+          <div class="book-info">
+            <div class="book-title">FPGA Prototyping by Verilog Examples: Xilinx Spartan-3</div>
+            <div class="book-author">Pong P. Chu</div>
+            <div class="book-edition">1st Edition · 2008 · Wiley-IEEE Press</div>
+          </div>
+        </div>
+        <div class="book-item">
+          <span class="book-num">15</span>
+          <div class="book-info">
+            <div class="book-title">CMOS VLSI Design: A Circuits and Systems Perspective</div>
+            <div class="book-author">Neil H. E. Weste & David Money Harris</div>
+            <div class="book-edition">4th Edition · 2011 · Addison-Wesley</div>
+          </div>
+        </div>
+        <div class="book-item">
+          <span class="book-num">16</span>
+          <div class="book-info">
+            <div class="book-title">SystemVerilog for Design</div>
+            <div class="book-author">Stuart Sutherland, Simon Davidmann & Peter Flake</div>
+            <div class="book-edition">2nd Edition · 2006 · Springer</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎬</span>
+          <h4>Video Sources</h4>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">ZipCPU — Timing Closure & Formal Verification</div>
+            <div class="video-note">zipcpu.com · Free · Professional hardware verification</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">NPTEL — VLSI System Design Course</div>
+            <div class="video-note">YouTube · Free · Full VLSI design curriculum</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools-card">
+      <div class="card-header">
+        <span class="card-icon">🛠️</span>
+        <h4>Tools For This Stage</h4>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">Xilinx Vivado / Intel Quartus — FPGA synthesis tools</span>
+        <span class="tool-free">FREE (WebPACK Edition)</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">Icarus Verilog + GTKWave</span>
+        <span class="tool-free">FREE · Open Source</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">Yosys — Open-source synthesis</span>
+        <span class="tool-free">FREE · Open Source</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">SymbiYosys — Formal verification tool</span>
+        <span class="tool-free">FREE · Open Source</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">Basys 3 or Arty A7 FPGA Board</span>
+        <span class="tool-paid">HARDWARE · ~$50–130</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">Magic VLSI — Open source layout tool</span>
+        <span class="tool-free">FREE · Open Source</span>
+      </div>
+      <div class="tool-item">
+        <span class="tool-name">OpenROAD — Open source RTL-to-GDS flow</span>
+        <span class="tool-free">FREE · Open Source</span>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>✦ What You Can Do After This Stage</h4>
+      <ul class="outcome-list">
+        <li>Design and implement complete digital systems on Xilinx or Intel FPGAs</li>
+        <li>Write production-quality Verilog and SystemVerilog for real hardware</li>
+        <li>Understand CMOS layout — how gates are physically drawn on silicon</li>
+        <li>Use formal verification to mathematically prove hardware correctness</li>
+        <li>You are now operating at the boundary between chip design and hardware engineering</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-line"></div><div class="connector-text">↓ CONTINUES</div><div class="connector-line"></div></div>
+
+
+  <!-- ══ STAGE 12 ══ -->
+  <div class="stage">
+    <div class="stage-stripe stripe-1"></div>
+    <div class="stage-header">
+      <div class="stage-number">STAGE 12</div>
+      <div class="stage-title-block">
+        <h2>Computer Architecture & Processor Design</h2>
+        <p>Pipelining, hazards, branch prediction, ISA design, out-of-order execution. Then you actually build a RISC-V CPU core in Verilog.</p>
+      </div>
+    </div>
+    <span class="stage-badge badge-later">► Processor Design</span>
+
+    <div class="stage-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📗</span>
+          <h4>Textbook</h4>
+        </div>
+        <div class="book-item">
+          <span class="book-num">17</span>
+          <div class="book-info">
+            <div class="book-title">Computer Architecture: A Quantitative Approach</div>
+            <div class="book-author">John L. Hennessy & David A. Patterson</div>
+            <div class="book-edition">6th Edition · 2019 · Morgan Kaufmann</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎬</span>
+          <h4>Video Sources</h4>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">MIT 6.175 — Building a RISC-V CPU Core</div>
+            <div class="video-note">MIT OCW · Free · Build a real processor in HDL</div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Onur Mutlu — ETH Zurich Digital Design & Computer Architecture</div>
+            <div class="video-note">YouTube · Free · Pairs with H&P textbook</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>✦ What You Can Do After This Stage</h4>
+      <ul class="outcome-list">
+        <li>Design a complete pipelined RISC-V processor from scratch in Verilog</li>
+        <li>Analyze processor performance using CPI, Amdahl's Law, and benchmarking</li>
+        <li>Understand every architectural decision in the ARM Cortex-M you programmed in Stage 7 — now from the designer's perspective</li>
+        <li>You have crossed the line from embedded engineer into processor designer</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-line"></div><div class="connector-text">↓ FINAL STAGE</div><div class="connector-line"></div></div>
+
+
+  <!-- ══ STAGE 13 ══ -->
+  <div class="stage">
+    <div class="stage-stripe stripe-2"></div>
+    <div class="stage-header">
+      <div class="stage-number">STAGE 13</div>
+      <div class="stage-title-block">
+        <h2>Advanced Architecture & Memory Systems</h2>
+        <p>Cache hierarchies, DRAM internals, multi-core coherence, memory bottlenecks. The deepest level — system performance from silicon to architecture.</p>
+      </div>
+    </div>
+    <span class="stage-badge badge-later">► Final Stage · VLSI Summit</span>
+
+    <div class="stage-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📗</span>
+          <h4>Textbook</h4>
+        </div>
+        <div class="book-item">
+          <span class="book-num">18</span>
+          <div class="book-info">
+            <div class="book-title">Memory Systems: Cache, DRAM, Disk</div>
+            <div class="book-author">Bruce Jacob, Spencer Ng & David Wang</div>
+            <div class="book-edition">1st Edition · 2007 · Morgan Kaufmann</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎬</span>
+          <h4>Video Source</h4>
+        </div>
+        <div class="video-item">
+          <div class="video-dot"></div>
+          <div>
+            <div class="video-name">Onur Mutlu — ETH Zurich Advanced Computer Architecture</div>
+            <div class="video-note">YouTube · Free · Research-level architecture</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>✦ What You Can Do After This Stage — The Complete Picture</h4>
+      <ul class="outcome-list">
+        <li>Design and optimize cache hierarchies for custom processors</li>
+        <li>Understand DRAM timing, refresh, and why memory latency dominates system performance</li>
+        <li>Design complete SoC memory subsystems</li>
+        <li>Engage with cutting-edge computer architecture research</li>
+        <li>Write firmware for any microcontroller from scratch at register level</li>
+        <li>Design PCBs that work correctly in the real world</li>
+        <li>Implement digital systems on FPGAs using professional HDL</li>
+        <li>Design a processor from ISA down to Verilog implementation</li>
+        <li>Understand the physics of every device on your chip or board</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════ POWER SYSTEMS FUTURE ══════════════════════════════════════ -->
+<div class="power-section">
+  <div style="max-width:1000px;margin:0 auto;">
+    <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#e8440a;margin-bottom:8px;">► After Stage 13 — Future Roadmap</div>
+    <h2 class="section-main">Power Systems & Power Electronics</h2>
+    <p class="section-desc">Begin only after completing all 13 VLSI & Embedded stages. Your completed foundation makes you learn this faster and deeper than anyone starting fresh.</p>
+
+    <div style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+
+      <div style="border:1.5px solid rgba(255,255,255,0.1);padding:24px;">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#e8440a;margin-bottom:12px;">POWER STAGE 1</div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;">Electric Machines & Transformers</div>
+        <div style="font-size:12px;color:#8899cc;">Electric Machinery Fundamentals — Stephen J. Chapman, 5th Ed, 2011</div>
+      </div>
+
+      <div style="border:1.5px solid rgba(255,255,255,0.1);padding:24px;">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#e8440a;margin-bottom:12px;">POWER STAGE 2</div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;">Power Electronics Fundamentals</div>
+        <div style="font-size:12px;color:#8899cc;">Power Electronics — Daniel W. Hart, 1st Ed, 2011<br>Fundamentals of Power Electronics — Erickson & Maksimovic, 3rd Ed, 2020</div>
+      </div>
+
+      <div style="border:1.5px solid rgba(255,255,255,0.1);padding:24px;">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#e8440a;margin-bottom:12px;">POWER STAGE 3</div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;">Electric Drives & Motor Control</div>
+        <div style="font-size:12px;color:#8899cc;">Power Electronics: Circuits, Devices & Applications — Muhammad H. Rashid, 4th Ed, 2013</div>
+      </div>
+
+      <div style="border:1.5px solid rgba(255,255,255,0.1);padding:24px;">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#e8440a;margin-bottom:12px;">POWER STAGE 4</div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;">Power System Analysis</div>
+        <div style="font-size:12px;color:#8899cc;">Power System Analysis — Grainger & Stevenson, 1st Ed, 1994<br>Electric Power Systems: A First Course — Ned Mohan, 1st Ed, 2012</div>
+      </div>
+
+      <div style="border:1.5px solid rgba(255,255,255,0.1);padding:24px;">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#e8440a;margin-bottom:12px;">POWER STAGE 5</div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;">Renewable Energy Systems</div>
+        <div style="font-size:12px;color:#8899cc;">Renewable Energy Systems — Ned Mohan, 1st Ed, 2012</div>
+      </div>
+
+      <div style="border:1.5px solid rgba(255,255,255,0.1);padding:24px;">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#e8440a;margin-bottom:12px;">POWER STAGE 6</div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;">Battery Management Systems</div>
+        <div style="font-size:12px;color:#8899cc;">Battery Management Systems Vol. I — Gregory L. Plett, 1st Ed, 2015</div>
+      </div>
+
+      <div style="border:1.5px solid rgba(255,255,255,0.1);padding:24px;">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#e8440a;margin-bottom:12px;">POWER STAGE 7</div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;">Power Management IC Design</div>
+        <div style="font-size:12px;color:#8899cc;">Power Management Integrated Circuits — Marian K. Kazimierczuk, 1st Ed, 2014</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ MASTER BOOK LIST ══════════════════════════════════════ -->
+<div class="master-list-section" style="max-width:1100px;margin:0 auto;padding:64px 60px;">
+  <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">► Complete Reference</div>
+  <h2 style="font-family:'Syne',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:800;margin-bottom:32px;">All 18 Textbooks — Master List</h2>
+
+  <table class="master-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Stage</th>
+        <th>Title</th>
+        <th>Author(s)</th>
+        <th>Edition / Year</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="num-col">01</td><td class="stage-col">Stage 1</td><td class="title-col">Fundamentals of Electric Circuits</td><td class="author-col">Alexander & Sadiku</td><td class="edition-col">7th Ed · 2020</td></tr>
+      <tr><td class="num-col">02</td><td class="stage-col">Stage 2</td><td class="title-col">Semiconductor Device Fundamentals</td><td class="author-col">Robert F. Pierret</td><td class="edition-col">2nd Ed · 1996</td></tr>
+      <tr><td class="num-col">03</td><td class="stage-col">Stage 3</td><td class="title-col">Signals & Systems</td><td class="author-col">Oppenheim & Willsky</td><td class="edition-col">2nd Ed · 1996</td></tr>
+      <tr><td class="num-col">04</td><td class="stage-col">Stage 4</td><td class="title-col">Microelectronic Circuits</td><td class="author-col">Sedra & Smith</td><td class="edition-col">8th Ed · 2020</td></tr>
+      <tr><td class="num-col">05</td><td class="stage-col">Stage 5</td><td class="title-col">The C Programming Language</td><td class="author-col">Kernighan & Ritchie</td><td class="edition-col">2nd Ed · 1988</td></tr>
+      <tr><td class="num-col">06</td><td class="stage-col">Stage 6</td><td class="title-col">Digital Design and Computer Architecture: ARM Edition</td><td class="author-col">Sarah L. Harris & David Money Harris</td><td class="edition-col">2nd Ed · 2015</td></tr>
+      <tr><td class="num-col">07</td><td class="stage-col">Stage 7</td><td class="title-col">ARM Cortex-M for Beginners</td><td class="author-col">ARM Ltd.</td><td class="edition-col">Latest Free Ed</td></tr>
+      <tr><td class="num-col">08</td><td class="stage-col">Stage 7</td><td class="title-col">Embedded Systems: Introduction to ARM Cortex-M Microcontrollers</td><td class="author-col">Jonathan W. Valvano</td><td class="edition-col">5th Ed · 2014</td></tr>
+      <tr><td class="num-col">09</td><td class="stage-col">Stage 8</td><td class="title-col">Making Embedded Systems</td><td class="author-col">Elecia White</td><td class="edition-col">2nd Ed · 2024</td></tr>
+      <tr><td class="num-col">10</td><td class="stage-col">Stage 8</td><td class="title-col">Operating Systems: Three Easy Pieces</td><td class="author-col">Arpaci-Dusseau & Arpaci-Dusseau</td><td class="edition-col">Free Online</td></tr>
+      <tr><td class="num-col">11</td><td class="stage-col">Stage 9</td><td class="title-col">Signal and Power Integrity Simplified</td><td class="author-col">Eric Bogatin</td><td class="edition-col">3rd Ed · 2018</td></tr>
+      <tr><td class="num-col">12</td><td class="stage-col">Stage 10</td><td class="title-col">Analog Integrated Circuit Design</td><td class="author-col">Carusone, Johns & Martin</td><td class="edition-col">2nd Ed · 2011</td></tr>
+      <tr><td class="num-col">13</td><td class="stage-col">Stage 10</td><td class="title-col">Analysis and Design of Analog Integrated Circuits</td><td class="author-col">Gray, Hurst & Lewis</td><td class="edition-col">5th Ed · 2009</td></tr>
+      <tr><td class="num-col">14</td><td class="stage-col">Stage 11</td><td class="title-col">FPGA Prototyping by Verilog Examples</td><td class="author-col">Pong P. Chu</td><td class="edition-col">1st Ed · 2008</td></tr>
+      <tr><td class="num-col">15</td><td class="stage-col">Stage 11</td><td class="title-col">CMOS VLSI Design: A Circuits and Systems Perspective</td><td class="author-col">Weste & Harris</td><td class="edition-col">4th Ed · 2011</td></tr>
+      <tr><td class="num-col">16</td><td class="stage-col">Stage 11</td><td class="title-col">SystemVerilog for Design</td><td class="author-col">Sutherland, Davidmann & Flake</td><td class="edition-col">2nd Ed · 2006</td></tr>
+      <tr><td class="num-col">17</td><td class="stage-col">Stage 12</td><td class="title-col">Computer Architecture: A Quantitative Approach</td><td class="author-col">Hennessy & Patterson</td><td class="edition-col">6th Ed · 2019</td></tr>
+      <tr><td class="num-col">18</td><td class="stage-col">Stage 13</td><td class="title-col">Memory Systems: Cache, DRAM, Disk</td><td class="author-col">Jacob, Ng & Wang</td><td class="edition-col">1st Ed · 2007</td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ══════════════════════════════════════ MASTER VIDEO LIST ══════════════════════════════════════ -->
+<div style="padding:0 60px 64px;max-width:1100px;margin:0 auto;">
+  <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">► Complete Reference</div>
+  <h2 style="font-family:'Syne',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:800;margin-bottom:32px;">All 18 Video Sources — Master List</h2>
+
+  <table class="master-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Stage</th>
+        <th>Source / Channel</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="num-col">01</td><td class="stage-col">Stage 1</td><td class="title-col">Neso Academy — Electric Circuits / Network Theory Playlist</td><td class="author-col">YouTube · Free</td></tr>
+      <tr><td class="num-col">02</td><td class="stage-col">Stage 3</td><td class="title-col">MIT OCW 6.003 — Signals & Systems, Fall 2011 (Prof. Dennis Freeman)</td><td class="author-col">YouTube · Free · 25 lectures</td></tr>
+      <tr><td class="num-col">03</td><td class="stage-col">Stage 3</td><td class="title-col">MIT RES.6.007 — Signals & Systems, 1987 (Prof. Alan Oppenheim)</td><td class="author-col">YouTube · Free · 26 lectures</td></tr>
+      <tr><td class="num-col">04</td><td class="stage-col">Stage 4 & 10</td><td class="title-col">Behzad Razavi — UC Berkeley EE140/EE240 Analog IC Design</td><td class="author-col">YouTube · Free</td></tr>
+      <tr><td class="num-col">05</td><td class="stage-col">Stage 6</td><td class="title-col">Neso Academy — Digital Electronics Playlist</td><td class="author-col">YouTube · Free · Active now</td></tr>
+      <tr><td class="num-col">06</td><td class="stage-col">Stage 6</td><td class="title-col">Ben Eater — Binary and Logic Gates Videos</td><td class="author-col">YouTube · Free</td></tr>
+      <tr><td class="num-col">07</td><td class="stage-col">Stage 6</td><td class="title-col">Ben Eater — Building an 8-bit Computer Playlist</td><td class="author-col">YouTube · Free</td></tr>
+      <tr><td class="num-col">08</td><td class="stage-col">Stage 6</td><td class="title-col">MIT 6.004 — Computation Structures</td><td class="author-col">MIT OCW · Free</td></tr>
+      <tr><td class="num-col">09</td><td class="stage-col">Stage 6</td><td class="title-col">Onur Mutlu — ETH Zurich Digital Design & Computer Architecture</td><td class="author-col">YouTube · Free</td></tr>
+      <tr><td class="num-col">10</td><td class="stage-col">Stage 7</td><td class="title-col">Fastbit Embedded Brain Academy — STM32 Register-Level Courses</td><td class="author-col">Udemy</td></tr>
+      <tr><td class="num-col">11</td><td class="stage-col">Stage 7</td><td class="title-col">Controllerstech — STM32 Peripherals & Firmware Tutorials</td><td class="author-col">YouTube · Free</td></tr>
+      <tr><td class="num-col">12</td><td class="stage-col">Stage 7</td><td class="title-col">Jonathan Valvano — UT Austin Embedded Systems Lectures</td><td class="author-col">Free online · utexas.edu</td></tr>
+      <tr><td class="num-col">13</td><td class="stage-col">Stage 7</td><td class="title-col">Bruce Land — Cornell ECE 4760 Lectures</td><td class="author-col">YouTube · Free</td></tr>
+      <tr><td class="num-col">14</td><td class="stage-col">Stage 8</td><td class="title-col">FreeRTOS — Official Documentation & Tutorial Series</td><td class="author-col">freertos.org · Free</td></tr>
+      <tr><td class="num-col">15</td><td class="stage-col">Stage 9</td><td class="title-col">Phil's Lab — PCB Design & KiCad Tutorials</td><td class="author-col">YouTube · Free</td></tr>
+      <tr><td class="num-col">16</td><td class="stage-col">Stage 11</td><td class="title-col">ZipCPU — Timing Closure & Formal Verification Methods</td><td class="author-col">zipcpu.com · Free</td></tr>
+      <tr><td class="num-col">17</td><td class="stage-col">Stage 11</td><td class="title-col">NPTEL — VLSI System Design Course</td><td class="author-col">YouTube · Free</td></tr>
+      <tr><td class="num-col">18</td><td class="stage-col">Stage 12</td><td class="title-col">MIT 6.175 — Building a RISC-V CPU Core</td><td class="author-col">MIT OCW · Free</td></tr>
+      <tr><td class="num-col">19</td><td class="stage-col">Stage 13</td><td class="title-col">Onur Mutlu — ETH Zurich Advanced Computer Architecture</td><td class="author-col">YouTube · Free</td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ══════════════════════════════════════ FOOTER ══════════════════════════════════════ -->
+<div class="footer">
+  <p>
+    <strong>VLSI Design & Embedded Systems — Master Roadmap</strong><br>
+    13 Stages · 18 Textbooks · 19 Video Sources · 20+ Tools<br>
+    Electrical & Electronic Engineering · Full-Stack Silicon Engineering<br><br>
+    Destination: Full-Stack Silicon Engineer —
+    From the physics of the transistor to the firmware running on the processor you designed yourself.
+  </p>
+</div>
+
+</body>
+</html>
